@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "136347174779",
-    "firebase_url": "https://zzusride.firebaseio.com",
-    "project_id": "zzusride",
-    "storage_bucket": "zzusride.appspot.com"
+    "project_number": "15395572062",
+    "firebase_url": "https://zzusstudy.firebaseio.com",
+    "project_id": "zzusstudy",
+    "storage_bucket": "zzusstudy.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136347174779:android:13c3c6a65bcbec53",
+        "mobilesdk_app_id": "1:15395572062:android:b4443399fcc253e5",
         "android_client_info": {
-          "package_name": "com.example.myapplication"
+          "package_name": "com.example.ZzusRide"
         }
       },
       "oauth_client": [
         {
-          "client_id": "136347174779-75lhd23kv6cq1f3pa5dqffc867pj5im3.apps.googleusercontent.com",
+          "client_id": "15395572062-4cl8uag5lpjf90ev5e2jvlbs1u4avvc0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.myapplication",
+            "package_name": "com.example.ZzusRide",
             "certificate_hash": "f668cb67ec0ed01d805138ffd3fa241284dff3a6"
           }
         },
         {
-          "client_id": "136347174779-7cq7o75674qeef8djvjmuphl7c1rpqur.apps.googleusercontent.com",
+          "client_id": "15395572062-4ljvlqugvbakeun6nsm5hhnbbou5ikiu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC0iJISFi1euVGIAhPEjZB7mF1Ga9nDzkE"
+          "current_key": "AIzaSyCZPWLV4J5aXMONNvW4L4JoAJdUaMQ0BaA"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "136347174779-7cq7o75674qeef8djvjmuphl7c1rpqur.apps.googleusercontent.com",
+              "client_id": "15395572062-4ljvlqugvbakeun6nsm5hhnbbou5ikiu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

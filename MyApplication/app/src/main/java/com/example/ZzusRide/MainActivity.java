@@ -67,18 +67,12 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        currentUser = mAuth.getCurrentUser();
-
-
-        mUsername = currentUser.getDisplayName();
+        mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance();
         mDataReference = mDatabase.getReference().child("posts").child("WashingtonStateUniversity");
 
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
-
-        if (AccessToken.getCurrentAccessToken() == null)
-            startLogin();
 
         mLoad = (ProgressBar) findViewById(R.id.progressBar);
 
