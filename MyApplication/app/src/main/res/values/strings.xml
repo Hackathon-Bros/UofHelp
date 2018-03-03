@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ZZusRide</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="post_label">Post</string>
+    <string name="facebook_app_id" translatable="false">1899786820286934</string>
+    <string name="fb_login_protocol_scheme">fb1899786820286934</string>
+    <string name="facebook_application_id" translatable="false">1899786820286934</string>
+
+    <string name="error_message">
+        An error has occurred. Please try again by clicking REFRESH
+    </string>
+
+    <string name="action_refresh">Refresh</string>
+
+    <string name="send_button_label">Send</string>
+</resources>

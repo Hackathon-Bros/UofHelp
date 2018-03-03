@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "136347174779",
+    "firebase_url": "https://zzusride.firebaseio.com",
+    "project_id": "zzusride",
+    "storage_bucket": "zzusride.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136347174779:android:13c3c6a65bcbec53",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136347174779-75lhd23kv6cq1f3pa5dqffc867pj5im3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "f668cb67ec0ed01d805138ffd3fa241284dff3a6"
+          }
+        },
+        {
+          "client_id": "136347174779-7cq7o75674qeef8djvjmuphl7c1rpqur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0iJISFi1euVGIAhPEjZB7mF1Ga9nDzkE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136347174779-7cq7o75674qeef8djvjmuphl7c1rpqur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
