@@ -32,6 +32,12 @@
         </activity>
 
         <activity
+            android:name="com.example.ZzusRide.PostViewActivity"
+            android:label="@string/app_name"
+            />
+
+
+        <activity
             android:name="com.example.ZzusRide.SelectionActivity"
             android:label="@string/app_name"
             />
