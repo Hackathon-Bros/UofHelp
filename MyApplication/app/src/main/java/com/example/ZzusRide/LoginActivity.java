@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity
 
                 if(user != null)
                 {
-                    startSelectionActivity();
+                    startMainActivity();
                 }
             }
         };
