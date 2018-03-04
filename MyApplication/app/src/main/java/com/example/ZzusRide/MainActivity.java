@@ -29,8 +29,10 @@ import com.facebook.login.LoginManager;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity
 
     private String mUsername, firstName, lastName;
     public static final int RC_SIGN_IN = 1;
-    public static final int MAX_POST_LENGTH = 200;
 
     private ImageButton mPhotoPickerButton;
     private EditText mMessageEditText;
@@ -93,6 +94,15 @@ public class MainActivity extends AppCompatActivity
             postImage = (ImageView) mView.findViewById(R.id.personal_image);
             Picasso.with(ctx).load(postURL).into(postImage);
         }
+
+        public void setLatitude(int lat)
+        {
+
+        }
+        public void setLongitude(int longit)
+        {
+
+        }
     }
 
     @Override
@@ -122,23 +132,46 @@ public class MainActivity extends AppCompatActivity
 
         mRecyclerView = (RecyclerView) findViewById(R.id.site_posts);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mPostsAdapter);
 
         currentUser = mAuth.getCurrentUser();
 
         mUsername = currentUser.getDisplayName();
 
-        Query personQuery = mDataReference.orderByKey();
+        Query personQuery = mDataReference.limitToLast(50);
 
-        FirebaseRecyclerOptions postOptions = new FirebaseRecyclerOptions.Builder<RidePost>().setQuery(personQuery, RidePost.class).build();
+        FirebaseRecyclerOptions<RidePost> postOptions = new FirebaseRecyclerOptions.Builder<RidePost>().setQuery(personQuery, RidePost.class).build();
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RidePost, PostViewHolder>(postOptions) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RidePost, PostViewHolder>(postOptions)
+        {
+
+            @Override
+            public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.post_list_item, parent, false);
+
+                return new PostViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull RidePost model) {
+                holder.setPostName(model.getName());
+                holder.setPostDetails(model.getText());
+                holder.setPostImage(getApplicationContext(), model.getPhotoUrl());
+                holder.setLongitude(model.getLONGITUDE());
+                holder.setLatitude(model.getLATITUDE());
+            }
+
+
+            /*
             @Override
             protected void onBindViewHolder(PostViewHolder holder, int position, RidePost model) {
                 holder.setPostName(model.getName());
                 holder.setPostDetails(model.getText());
                 holder.setPostImage(getApplicationContext(), model.getPhotoUrl());
+                holder.setLongitude(model.getLONGITUDE());
+                holder.setLatitude(model.getLATITUDE());
+
             }
 
             @Override
@@ -148,7 +181,7 @@ public class MainActivity extends AppCompatActivity
                         .inflate(R.layout.post_list_item, parent, false);
 
                 return new PostViewHolder(view);
-            }
+            }*/
         };
 
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
