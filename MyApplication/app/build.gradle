@@ -2,8 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+<<<<<<< HEAD
     buildToolsVersion "26.0.2"
 
+=======
+    buildToolsVersion '26.0.2'
+>>>>>>> 23e5686218dda07747786ed7ae7a46636f2824ee
     defaultConfig {
         applicationId "com.example.ZzusRide"
         minSdkVersion 17
