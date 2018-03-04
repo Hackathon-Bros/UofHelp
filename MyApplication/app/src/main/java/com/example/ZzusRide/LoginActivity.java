@@ -14,6 +14,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +27,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
+import com.amazonaws.mobile.client.AWSMobileClient;
+import android.app.Activity;
+import android.os.Bundle;
 
+import com.amazonaws.mobile.auth.ui.SignInUI;
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.client.AWSStartupHandler;
+import com.amazonaws.mobile.client.AWSStartupResult;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 /**
  * Created by winto on 8/5/2017.
@@ -53,8 +64,9 @@ public class LoginActivity extends AppCompatActivity
         callback = CallbackManager.Factory.create();
 
         login = (LoginButton) findViewById(R.id.login_button);
+        mAuth = FirebaseAuth.getInstance();
 
-        login.setReadPermissions(Arrays.asList("email"));
+        login.setReadPermissions(Arrays.asList("email", "public_profile"));
 
         login.registerCallback(callback, new FacebookCallback<LoginResult>() {
             @Override
@@ -72,8 +84,6 @@ public class LoginActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Operation Cancelled", Toast.LENGTH_LONG).show();
             }
         });
-
-        mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -98,6 +108,7 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(getApplicationContext(), "Login Error", Toast.LENGTH_LONG).show();
                 }
                 else
@@ -127,6 +138,8 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
