@@ -28,6 +28,10 @@ public class SitePostsAdapter extends RecyclerView.Adapter<SitePostsAdapter.Site
 
     }
 
+    public interface ForecastAdapterOnClickHandler {
+        void onClick(long date);
+    }
+
     // COMPLETED (16) Create a class within ForecastAdapter called ForecastAdapterViewHolder
     // COMPLETED (17) Extend RecyclerView.ViewHolder
     /**

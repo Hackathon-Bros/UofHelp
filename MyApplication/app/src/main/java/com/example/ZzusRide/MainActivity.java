@@ -1,18 +1,23 @@
 package com.example.ZzusRide;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +27,14 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 
@@ -54,6 +63,38 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private FirebaseRecyclerAdapter<RidePost, PostViewHolder> firebaseRecyclerAdapter;
+
+    public static class PostViewHolder extends RecyclerView.ViewHolder
+    {
+        View mView;
+        ImageView postImage;
+        TextView postName;
+        TextView postDetails;
+
+        public PostViewHolder(View itemView)
+        {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setPostDetails(String details) {
+            postDetails = (TextView) mView.findViewById(R.id.post_details);
+            postDetails.setText(details);
+        }
+
+        public void setPostName(String name)
+        {
+            postName = (TextView) mView.findViewById(R.id.tv_post_data);
+            postName.setText(name);
+        }
+
+        public void setPostImage(Context ctx, String postURL) {
+            postImage = (ImageView) mView.findViewById(R.id.personal_image);
+            Picasso.with(ctx).load(postURL).into(postImage);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         mDatabase = FirebaseDatabase.getInstance();
         mDataReference = mDatabase.getReference().child("posts").child("WashingtonStateUniversity");
+        mDataReference.keepSynced(true);
 
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
 
@@ -87,7 +129,46 @@ public class MainActivity extends AppCompatActivity
 
         mUsername = currentUser.getDisplayName();
 
+        Query personQuery = mDataReference.orderByKey();
+
+        FirebaseRecyclerOptions postOptions = new FirebaseRecyclerOptions.Builder<RidePost>().setQuery(personQuery, RidePost.class).build();
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RidePost, PostViewHolder>(postOptions) {
+            @Override
+            protected void onBindViewHolder(PostViewHolder holder, int position, RidePost model) {
+                holder.setPostName(model.getName());
+                holder.setPostDetails(model.getText());
+                holder.setPostImage(getApplicationContext(), model.getPhotoUrl());
+            }
+
+            @Override
+            public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.post_list_item, parent, false);
+
+                return new PostViewHolder(view);
+            }
+        };
+
+        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+
         showPostsView();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        firebaseRecyclerAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        firebaseRecyclerAdapter.stopListening();
+
     }
 
     private void showPostsView()
@@ -170,5 +251,4 @@ public class MainActivity extends AppCompatActivity
         mUsername = "";
 
     }
-
 }
