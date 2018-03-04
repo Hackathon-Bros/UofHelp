@@ -40,7 +40,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity
+public class PostViewActivity extends AppCompatActivity
 {
     public static final int WASHINGTON_STATE_UNIVERSITY = 1;
     public static final int BOISE_STATE_UNIVERSITY = 2;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recycler);
 
         mPhotoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
